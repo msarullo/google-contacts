@@ -3,15 +3,15 @@
 <script src="https://apis.google.com/js/client.js?onload=gapiLoad"></script>
  
 <script>
-function gapiLoad(apiKey) {
+function gapiLoad(apiKey, oauthKey) {
 	gapi.client.setApiKey(apiKey);	// app api-wide client api key
-	getGoogleContactEmails(function(result){
+	getGoogleContactEmails(oauthKey, function(result){
 		console.log(result);
 	});
 }
  
-function getGoogleContactEmails(callback) {
-  var oauth_clientKey = 'YOUR_OAUTH_KEY'; // replace with your oauth client api key
+function getGoogleContactEmails(oauthKey, callback) {
+  var oauth_clientKey = oauthKey;
 	var firstTry = true;
 	function connect(immediate, callback){
 	    var config = {
@@ -57,13 +57,12 @@ function getGoogleContactEmails(callback) {
  
   <body>
     <form>
-      API Key: <input type="text" name="apiKey" value="ENTER ME!">
+      API Key: <input type="text" name="apiKey">
       <br/>
-      <button onclick="gapiLoad(apiKey);">Connect With API</button>
-      <br/>
-      <br/>
-
       OAuth Key: <input type="text" name="oauthKey">
+      <br/>
+      <button onclick="gapiLoad(apiKey.value, oauthKey.value);">Connect With API</button>
+      <br/>
     </form>
   </body>
 </html>
